@@ -34,8 +34,8 @@ public class ServicioCuentaImpl implements ServicioCuenta {
     }
 
     @Override
-    public void transferir(Long numeroCuentaOrigen, Long numeroCuentaDestino, BigDecimal monto) {
-        Banco banco = repositorioBanco.findById(1L); // dejo el id hardcodeado
+    public void transferir(Long numeroCuentaOrigen, Long numeroCuentaDestino, BigDecimal monto, Long bancoId) {
+        Banco banco = repositorioBanco.findById(bancoId);
         int totalTransferencias = banco.getTotalTransferencias();
         banco.setTotalTransferencias(++totalTransferencias); // incremento el total de transferencias
         repositorioBanco.update(banco); // actualizo el banco
@@ -47,6 +47,5 @@ public class ServicioCuentaImpl implements ServicioCuenta {
         Cuenta cuentaDestino = repositorioCuenta.findById(numeroCuentaDestino);
         cuentaDestino.credito(monto);
         repositorioCuenta.update(cuentaDestino);
-
     }
 }
